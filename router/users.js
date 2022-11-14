@@ -26,6 +26,12 @@ router.get("/", verifyToken, async (req, res) => {
 
 router.post("/signup", async (req, res, next) => {
   const { username, password } = req.body;
+  const existingUser = await User.findOne({ where: { username } });
+  if (existingUser) {
+    return res
+      .status(400)
+      .json({ statusCode: 400, statusMessage: "already existring user" });
+  }
   bcrypt.genSalt(3, (err, salt) => {
     if (err) next(err);
     bcrypt.hash(password, salt, (err, hashedPassword) => {
