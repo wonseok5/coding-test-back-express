@@ -6,11 +6,9 @@ const indexRouter = require("./router/index");
 const usersRouter = require("./router/users");
 const articlesRouter = require("./router/articles");
 
-const { whiteList } = require("./constants");
-
 const app = express();
 
-app.use(cors({ origin: whiteList, credentials: true }));
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser("whoyaho1!"));
